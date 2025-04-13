@@ -1,0 +1,74 @@
+{
+	"spacing": 10,
+    // Choose the order of the modules
+    "modules-left": ["hyprland/workspaces" ],
+    "modules-center": [
+	    "cpu",
+	    "temperature"
+    ],
+    "modules-right": [
+	    "clock",
+	    "wireplumber",
+	    "network",
+	    "tray"
+    ],
+    "layer": "top", 
+    "position": "bottom", 
+    "height": 26, 
+    "hyprland/workspaces": {
+	    "format": "{icon}",
+	    "on-click": "activate",
+	    "format-icons": {
+		    "1": "1",
+		    "2": "2",
+		    "3": "3",
+		    "4": "4",
+		    "5": "5",
+		    "6": "6",
+		    "7": "7",
+		    "8": "8",
+		    "9": "9",
+		    "10": "0",
+		    "urgent": "!",
+		    "focused": "●",
+		    "default": "○"
+	    },
+	    "persistent-workspaces": {
+	    }
+    },
+    "temperature": {
+    "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+    "critical-threshold": 80,
+    "format-critical": "{temperatureC}!!!",
+    "format": "{temperatureC}"
+    },
+    "clock": {
+	    "format": "{:%H:%M}", // 24-hour format
+	    "format-alt": "{:%a %d %b %Y}", // Show date on alternate action (e.g., scroll)
+	    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>", // Tooltip with calendar
+	    "timezone": "Europe/Amsterdam" // Set your timezone
+    },
+    "wireplumber": {
+	    "format": "{volume}% {icon}", // {format_source} // Include source if needed
+	    "format-bluetooth": "{volume}% {icon}",
+	    "format-muted": " Muted",
+	    "format-icons": {
+		    "default": ["", "", ""]
+	    },
+	    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle", // Toggle mute on click using wpctl
+	    "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+", // Increase volume on scroll up
+	    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-" // Decrease volume on scroll down
+    },
+    "network": {
+	    "format-wifi": "  {essid}",
+	    "format-ethernet": " {}",
+	    "format-disconnected": "⚠ Disconnected",
+	    "tooltip-format": "{ifname} via {gwaddr} ",
+	    "on-click": "nm-connection-editor" // Open network settings on click
+    },
+    "tray": {
+	    "icon-size": 18,
+	    "spacing": 10 // Spacing between tray icons
+    }
+}
+
