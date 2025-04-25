@@ -11,31 +11,6 @@ return {
 			{ 'junegunn/fzf.vim' },
 		},
 	},
-	{
-		'zbirenbaum/copilot.lua',
-		cmd = 'Copilot',
-		build = ':Copilot auth',
-		event = 'InsertEnter',
-		opts = {
-			suggestion = {
-				enabled = true,
-				auto_trigger = true,
-				keymap = {
-					next = '<M-]>',
-					prev = '<M-[>',
-					accept = '<S-TAB>',
-					reject = '<ESC>',
-				},
-			},
-			panel = { enabled = true },
-			filetypes = {
-				markdown = true,
-				help = true,
-				lua = true,
-				toml = true,
-			},
-		},
-	},
 	-- LSP Plugins
 	{
 		-- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins

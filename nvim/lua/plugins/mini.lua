@@ -17,17 +17,31 @@ return {
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
       require('mini.bracketed').setup()
-      require('mini.files').setup()
+      require('mini.git').setup()
       require('mini.statusline').setup()
       require('mini.tabline').setup()
 
-      local minifiles_toggle = function(...)
+      require('mini.files').setup()
+      MiniFiles.config.windows.preview = true
+      MiniFiles.config.windows.max_number = 3
+      MiniFiles.config.windows.width_focus = 30
+      MiniFiles.config.windows.width_nofocus = 30
+      MiniFiles.config.windows.width_preview = 80
+      MiniFiles.config.mappings.go_in_plus = 'l'
+      MiniFiles.config.mappings.go_in = 'L'
+
+      local minifiles_toggle = function()
         if not MiniFiles.close() then
-          MiniFiles.open(...)
+          MiniFiles.open(vim.api.nvim_buf_get_name(0))
         end
       end
 
-      vim.keymap.set('n', '<Leader>e', minifiles_toggle, { noremap = true, silent = true })
+      vim.keymap.set('n', '<Leader>e', minifiles_toggle, { noremap = true, silent = true})
+      -- Shift-H to go to previous buffer (like [b)
+      vim.keymap.set('n', 'H', ':bprevious<CR>', { noremap = true, silent = true })
+
+      -- Shift-L to go to next buffer (like ]b)
+      vim.keymap.set('n', 'L', ':bnext<CR>', { noremap = true, silent = true })
 
       local miniclue = require 'mini.clue'
       miniclue.setup {
