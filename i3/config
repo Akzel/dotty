@@ -69,6 +69,7 @@ bindsym $mod+Shift+0 move container to workspace number 10
 
 ## App shortcuts
 bindsym $mod+w exec --no-startup-id $BROWSER
+bindsym $mod+Shift+w exec --no-startup-id chromium-snapshot-bin
 bindsym $mod+n exec --no-startup-id kitty -e ranger
 
 set $ws1 "1"
@@ -82,16 +83,17 @@ set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
 
-
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id /usr/bin/dunst
 exec --no-startup-id flameshot
 exec --no-startup-id nm-applet
-exec_always --no-startup-id kdeconnect-indicator
-exec_always -no-startup-id nvidia-settings --assign CurrentMetaMode="HDMI-0: 3840x2160_60 +0+0 {ForceFullCompositionPipeline=On}, DP-2: 3840x2160_144 +0+2160 {ForceFullCompositionPipeline=On}"
-
-exec_always --no-startup-id setxkbmap -layout 'us,is' -option 'grp:alt_shift_toggle,caps:escape'
-exec_always --no-startup-id feh --bg-scale --no-xinerama Pictures/wallpapers_/shaco.jpeg
+exec --no-startup-id kdeconnect-indicator
+exec --no-startup-id nvidia-settings --assign CurrentMetaMode="\
+	HDMI-1: 3840x2160_60  +0+0	{ForceFullCompositionPipeline=On},\
+	DP-0: 	3840x2160_144 +3840+0	{ForceFullCompositionPipeline=On}"
+exec_always --no-startup-id setxkbmap -layout 'us,is' -option '\
+	grp:alt_shift_toggle,caps:escape'
+exec_always --no-startup-id feh --bg-fill --randomize ~/Pictures/wallpapers/active/*
 
 set $orange	#ffa500
 set $darkblue		#08052b
@@ -105,28 +107,44 @@ set $grey		#b0b5bd
 set $mediumgrey		#8b8b8b
 set $yellowbrown	#e1b700
 # define colors for windows:
-#class		        	border		bground		text		indicator	child_border
-client.focused		    	$orange	$darkblue	$white		$orange	$orange
-client.unfocused	    	$darkblue	$darkblue	$grey		$darkgrey	$darkgrey
-client.focused_inactive		$darkblue	$darkblue	$grey		$black		$black
-client.urgent		    	$urgentred	$urgentred	$white		$yellowbrown	$yellowbrown
+#class		        	border		background	text	indicator	child_border
+client.focused			$orange		$darkblue	$white	$orange		$orange
+client.unfocused		$darkblue	$darkblue	$grey	$darkgrey	$darkgrey
+client.focused_inactive		$darkblue	$darkblue	$grey	$black		$black
+client.urgent   		$urgentred	$urgentred	$white	$yellowbrown	$yellowbrown
 
 bar {
-	status_command i3blocks -c ~/.config/i3/i3blocks.conf
-  font pango:monospace 10
-	tray_output primary
-  tray_padding 6
-	colors {
-		background #000000
-			statusline #ffffff
-			separator #666666
-			focused_workspace  $orange #080808 $orange
-			active_workspace   #402000 #080808 #ffffff
-			inactive_workspace #333333 #080808 #888888
-			urgent_workspace   #2f343a #900000 #ffffff
-			binding_mode       #2f343a #900000 #ffffff
-	}
-}
+    status_command python /usr/lib/python3.13/site-packages/powerline/bindings/i3/powerline-i3.py
+    font pango:Terminess Powerline 10
+    tray_output primary
+    colors {
+    background #000000
+    statusline #ffffff
+    separator #666666
+    focused_workspace  $orange #080808 $orange
+    active_workspace   #402000 #080808 #ffffff
+    inactive_workspace #333333 #080808 #888888
+    urgent_workspace   #2f343a #900000 #ffffff
+    binding_mode       #2f343a #900000 #ffffff
+    }
+
+    }
+# bar {
+# 	status_command i3blocks -c ~/.config/i3/i3blocks.conf
+# 		font pango:monospace 10
+# 		tray_output primary
+# 		tray_padding 6
+# 		colors {
+# 			background #000000
+# 				statusline #ffffff
+# 				separator #666666
+# 				focused_workspace  $orange #080808 $orange
+# 				active_workspace   #402000 #080808 #ffffff
+# 				inactive_workspace #333333 #080808 #888888
+# 				urgent_workspace   #2f343a #900000 #ffffff
+# 				binding_mode       #2f343a #900000 #ffffff
+# 		}
+# }
 
 
 bindsym $mod+d exec --no-startup-id rofi -modi drun -show drun -config ~/.config/rofi/rofidmenu.rasi
