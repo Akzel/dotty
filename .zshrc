@@ -58,7 +58,7 @@ fzf-man-widget() {
   zle reset-prompt
 }
 # `Ctrl-H` keybinding to launch the widget (this widget works only on zsh, don't know how to do it on bash and fish (additionaly pressing`ctrl-backspace` will trigger the widget to be executed too because both share the same keycode)
-bindkey '^h' fzf-man-widget
+bindkey '^m' fzf-man-widget
 zle -N fzf-man-widget
 
 ncmpcppShow() {
