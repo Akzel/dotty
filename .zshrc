@@ -57,9 +57,11 @@ fzf-man-widget() {
       --bind "alt-t:+change-preview(tldr {1})+change-prompt(ﳁ TLDR > )"
   zle reset-prompt
 }
-# `Ctrl-H` keybinding to launch the widget (this widget works only on zsh, don't know how to do it on bash and fish (additionaly pressing`ctrl-backspace` will trigger the widget to be executed too because both share the same keycode)
-bindkey '^m' fzf-man-widget
+bindkey '^h' fzf-man-widget
 zle -N fzf-man-widget
+
+alias ll='ls -lah --color=always'
+alias ..='cd ..'
 
 ncmpcppShow() {
   BUFFER="ncmpcpp"
