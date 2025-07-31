@@ -34,6 +34,7 @@ settings:
     https://chatgpt.com: access-paste
     https://gemini.google.com: access-paste
     https://github.com: access-paste
+    https://web.whatsapp.com: access-paste
   content.pdfjs:
     global: true
   fileselect.folder.command:
