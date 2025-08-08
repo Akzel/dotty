@@ -1,4 +1,5 @@
 return {
+  { "saghen/blink.cmp", enabled = false },
   {
     "folke/flash.nvim",
     enabled = false,
