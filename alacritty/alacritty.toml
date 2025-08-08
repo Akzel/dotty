@@ -1,0 +1,5 @@
+[general]
+import = ["/usr/lib/node_modules/alacritty-themes/themes/Blood-Moon.toml"]
+
+[font]
+normal = { family = "Hasklug Nerd Font Mono", style = "Regular" }
