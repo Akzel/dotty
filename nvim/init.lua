@@ -1,5 +1,8 @@
 local v = vim
+local map = v.keymap.set
+
 v.g.mapleader = " "
+
 v.opt.winborder = "bold"
 v.opt.tabstop = 2
 v.opt.cursorcolumn = false
@@ -15,50 +18,38 @@ v.opt.undofile = true
 v.opt.incsearch = true
 v.opt.signcolumn = "yes"
 
-local map = v.keymap.set
+v.pack.add({
+	{ src = "https://github.com/EdenEast/nightfox.nvim" },
+	{ src = "https://github.com/j-hui/fidget.nvim" },
+	{ src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
+	{ src = "https://github.com/echasnovski/mini.nvim" },
+	{ src = "https://github.com/folke/which-key.nvim" },
+	{ src = "https://github.com/ibhagwan/fzf-lua" },
+	{ src = "https://github.com/m4xshen/hardtime.nvim" },
+	{ src = "https://github.com/mason-org/mason.nvim" },
+	{ src = "https://github.com/tpope/vim-speeddating" }, -- increment <C-a> <C-x>
+})
+
+require "fidget".setup()
+require "hardtime".setup()
+require "mason".setup()
+require "fzf-lua".setup({ 'fzf-vim'})
+
+require "mini.icons".setup()
+require "mini.snippets".setup()
+require "mini.completion".setup()
+require "mini.files".setup()
+require "mini.move".setup()
+
+v.cmd("colorscheme nightfox")
+v.cmd("FzfLua register_ui_select")
+
+map('n', '<leader>f', ":FzfLua<CR>")
+map('n', '<leader>e', ":lua MiniFiles.open()<CR>")
+map('n', '<leader>bf', v.lsp.buf.format)
 
 map({ 'n' }, '<leader>o', ':update<CR> :source<CR>')
 map({ 'n', 'i' }, '<c-s>', '<Esc>:write<CR>')
 map({ 'n' }, '<leader>q', ':quit<CR>')
-map({ 'n', 'v', 'x' }, '<leader>y', '"+y<CR>')
-map({ 'n', 'v', 'x' }, '<leader>d', '"+d<CR>')
 
-v.pack.add({
-	{ src = "https://github.com/vague2k/vague.nvim" },
-	{ src = "https://github.com/ibhagwan/fzf-lua" },
-	{ src = "https://github.com/stevearc/oil.nvim" },
-	{ src = "https://github.com/echasnovski/mini.surround" },
-	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
-	{ src = "https://github.com/mason-org/mason.nvim" },
-	{ src = "https://github.com/m4xshen/hardtime.nvim" },
-	{ src = "https://github.com/mrcjkb/rustaceanvim" },
-	{ src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
-	-- dial.nvim
-	-- flash/leap
-	-- fzf-lua
-	-- neorg?
-	-- rustaceanvim
-	-- scnvim --supercollider
-})
-
-require "mason".setup()
-require "mini.surround".setup()
-require "oil".setup()
-require "hardtime".setup()
-
-map('n', '<leader>f', ":FzfLua<CR>")
-map('n', '<leader>e', ":Oil<CR>")
-
-map('n', '<leader>bf', vim.lsp.buf.format)
-
-v.cmd("colorscheme vague")
--- v.cmd(":hi statusline guibg=NONE")
---
-v.api.nvim_create_autocmd('LspAttach', {
-	callback = function(e)
-		local c = v.lsp.get_client_by_id(e.data.client_id)
-		if c:supports_method('textDocument/completion') then
-			      vim.lsp.completion.enable(true, client.id, args.buf, {autotrigger = true})
-					end
-	end,
-})
+v.api.nvim_create_autocmd('BufEnter', { command = "filetype detect" })
