@@ -1,6 +1,6 @@
 set $mod Mod4
 set $BROWSER qutebrowser
-set $TERMINAL kitty
+set $TERMINAL alacritty
 set $EDITOR nvim
 
 font pango:Hasklug Nerd Font 16
@@ -11,7 +11,8 @@ floating_modifier $mod
 
 bindsym $mod+Tab workspace next
 bindsym $mod+Shift+Tab workspace prev
-bindsym $mod+Return exec kitty
+bindsym $mod+Return exec $TERMINAL
+bindsym $mod+Shift+Return exec --no-startup-id $TERMINAL --class alacritty-float
 bindsym $mod+Shift+q kill
 bindsym $mod+Shift+e exec ~/.config/i3/scripts/powermenu
 bindsym $mod+Shift+c reload
@@ -54,21 +55,21 @@ bindsym $mod+Shift+9 move container to workspace number 9
 bindsym $mod+Shift+0 move container to workspace number 10
 bindsym $mod+w exec --no-startup-id $BROWSER
 bindsym $mod+Shift+w exec --no-startup-id firefox
-bindsym $mod+n exec --no-startup-id kitty -e yazi
+bindsym $mod+n exec --no-startup-id $TERMINAL -e yazi
 bindsym $mod+d exec --no-startup-id rofi -modi drun -show drun -config ~/.config/rofi/rofidmenu.rasi
 bindsym $mod+s exec flameshot gui
 
-exec --no-startup-id feh --bg-fill --randomize ~/Pictures/wallpapers/active/*
-exec --no-startup-id setxkbmap -layout 'us,is' -option 'grp:alt_shift_toggle,caps:escape'
-exec --no-startup-id picom
-exec --no-startup-id xset -dpms
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id /usr/bin/dunst
-exec --no-startup-id flameshot
-exec --no-startup-id nm-applet
-exec --no-startup-id kdeconnect-indicator
-exec --no-startup-id autotiling
-exec --no-startup-id nvidia-settings --assign CurrentMetaMode="\
+exec_always --no-startup-id feh --bg-fill --randomize ~/Pictures/wallpapers/active/*
+exec_always --no-startup-id setxkbmap -layout 'us,is' -option 'grp:alt_shift_toggle,caps:escape'
+exec_always --no-startup-id picom
+exec_always --no-startup-id xset -dpms
+exec_always --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec_always --no-startup-id /usr/bin/dunst
+exec_always --no-startup-id flameshot
+exec_always --no-startup-id nm-applet
+exec_always --no-startup-id kdeconnect-indicator
+exec_always --no-startup-id autotiling
+exec_always --no-startup-id nvidia-settings --assign CurrentMetaMode="\
 	HDMI-0: 3840x2160_60  +0+0 {ForceFullCompositionPipeline=On},\
 	HDMI-1: 3840x2160_60  +0+0 {ForceFullCompositionPipeline=On},\
 	DP-2: 	3840x2160_144 +0+2160 {ForceFullCompositionPipeline=On},\
@@ -94,3 +95,6 @@ bar {
 	    binding_mode       #2f343a #900000 #ffffff
 	    }
     }
+
+
+for_window [instance="alacritty-float"] floating enable
