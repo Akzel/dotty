@@ -1,6 +1,6 @@
 set $mod Mod4
 set $BROWSER qutebrowser
-set $TERMINAL alacritty
+set $TERMINAL kitty
 set $EDITOR nvim
 
 font pango:Hasklug Nerd Font 16
@@ -12,7 +12,7 @@ floating_modifier $mod
 bindsym $mod+Tab workspace next
 bindsym $mod+Shift+Tab workspace prev
 bindsym $mod+Return exec $TERMINAL
-bindsym $mod+Shift+Return exec --no-startup-id $TERMINAL --class alacritty-float
+bindsym $mod+Shift+Return exec --no-startup-id $TERMINAL --class float
 bindsym $mod+Shift+q kill
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
@@ -96,4 +96,4 @@ bar {
     }
 
 
-for_window [instance="alacritty-float"] floating enable
+for_window [instance="float"] floating enable
