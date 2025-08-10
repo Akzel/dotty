@@ -59,3 +59,4 @@ map({ 'n', 'i' }, '<c-s>', '<Esc>:write<CR>')
 map({ 'n' }, '<leader>q', ':quit<CR>')
 
 v.api.nvim_create_autocmd('BufEnter', { command = "filetype detect" })
+v.api.nvim_set_hl(0,'@lsp.type.comment', {italic=true})
