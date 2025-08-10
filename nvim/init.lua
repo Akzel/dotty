@@ -2,9 +2,6 @@ local v = vim
 local  map, o = v.keymap.set, v.opt
 
 
-v.api.nvim_create_autocmd('BufEnter', { command = "filetype detect" })
-v.api.nvim_set_hl(0, '@lsp.type.comment', { italic = true })
-v.cmd("colorscheme retrobox")
 v.g.mapleader = " "
 
 o.tabstop = 2
@@ -29,6 +26,7 @@ o.signcolumn = "yes"
 
 v.pack.add({
 	{ src = "https://github.com/CopilotC-Nvim/CopilotChat.nvim" },
+	{ src = "https://github.com/pineapplegiant/spaceduck" },
 	{ src = "https://github.com/EdenEast/nightfox.nvim" },
 	{ src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
 	{ src = "https://github.com/echasnovski/mini.nvim" },
@@ -44,11 +42,11 @@ v.pack.add({
 })
 
 
-
 require "CopilotChat".setup()
 require "fidget".setup()
+require "fzf-lua".register_ui_select()
 require "fzf-lua".setup({ 'fzf-vim' })
-require "hardtime".setup()
+require "hardtime".setup({disable_mouse=false})
 require "mason".setup()
 require "mini.completion".setup()
 require "mini.files".setup({ windows = { preview = true, max_number = 2, width_preview = 50 } })
@@ -57,8 +55,7 @@ require "mini.indentscope".setup()
 require "mini.move".setup()
 require "mini.snippets".setup()
 require "sort".setup()
-require("fzf-lua").register_ui_select()
-
+v.cmd("colorscheme spaceduck")
 
 map('n', '<leader>b', '', { desc = 'Buffer' })
 map('n', '<leader>bf', v.lsp.buf.format, { desc = 'Format' })
@@ -84,4 +81,8 @@ map('n', '<C-Up>', '"<Cmd>resize +"          . v:count1 . "<CR>"',
 	{ expr = true, replace_keycodes = false, desc = 'Increase window height' })
 map('n', '<C-Right>', '"<Cmd>vertical resize +" . v:count1 . "<CR>"',
 	{ expr = true, replace_keycodes = false, desc = 'Increase window width' })
+
+v.api.nvim_create_autocmd('BufEnter', { command = "filetype detect" })
+v.api.nvim_set_hl(0, '@lsp.type.comment', { italic = true })
+v.cmd("hi comment gui='italic'")
 
