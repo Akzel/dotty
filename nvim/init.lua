@@ -1,22 +1,29 @@
 local v = vim
-local map = v.keymap.set
+local map, o = v.keymap.set, v.opt
 
 v.g.mapleader = " "
 
-v.opt.winborder = "bold"
-v.opt.tabstop = 2
-v.opt.cursorcolumn = false
-v.opt.ignorecase = true
-v.opt.shiftwidth = 2
-v.opt.smartindent = true
-v.opt.wrap = false
--- v.opt.number = true
--- v.opt.relativenumber = true
-v.opt.swapfile = false
-v.opt.termguicolors = true
-v.opt.undofile = true
-v.opt.incsearch = true
-v.opt.signcolumn = "yes"
+o.winborder = "bold"
+-- o.tabstop = 2
+-- o.cursorline = false
+-- o.cursorcolumn = false
+o.ignorecase = true
+o.shiftwidth = 2
+o.splitright = true
+o.splitbelow = true
+o.ruler = true
+o.smartindent = true
+o.wrap = false
+o.splitkeep = 'screen' -- Reduce scroll during window split
+
+o.mouse = 'a'
+o.number = true
+o.relativenumber = true
+o.swapfile = false
+o.termguicolors = true
+o.undofile = true
+o.incsearch = true
+o.signcolumn = "yes"
 
 v.pack.add({
 	{ src = "https://github.com/EdenEast/nightfox.nvim" },
@@ -43,20 +50,37 @@ require "mini.icons".setup()
 require "mini.snippets".setup()
 require "mini.indentscope".setup()
 require "mini.completion".setup()
-require "mini.files".setup()
+require "mini.files".setup({ windows = { preview = true, max_number = 2, width_preview = 50 } })
 require "mini.move".setup()
 
 v.cmd("colorscheme retrobox")
 require("fzf-lua").register_ui_select()
 
-map('n', '<leader>f', ":FzfLua<CR>")
-map('n', '<leader>e', ":lua MiniFiles.open()<CR>")
-map('n', '<leader>bf', v.lsp.buf.format)
-map('n', '<leader>bp', "%!prettier --stdin-filepath %<CR>")
+map('n', '<leader>f', ":FzfLua<CR>", { desc = 'Fzf' })
+map('n', '<leader>b', '', { desc = 'Buffer' })
+map('n', '<leader>e', ":lua MiniFiles.open()<CR>", { desc = 'filetreE' })
+map('n', '<leader>bf', v.lsp.buf.format, { desc = 'Format' })
+map('n', '<leader>bp', "%!prettier --stdin-filepath %<CR>", { desc = 'Prettier' })
 
-map({ 'n' }, '<leader>o', ':update<CR> :source<CR>')
-map({ 'n', 'i' }, '<c-s>', '<Esc>:write<CR>')
-map({ 'n' }, '<leader>q', ':quit<CR>')
+map({ 'n' }, '<leader>o', ':update<CR> :source<CR>', { desc = 'sOurce' })
+map({ 'n', 'i' }, '<c-s>', '<Esc>:write<CR>', { desc = 'Save' })
+map({ 'n' }, '<leader>q', ':quit<CR>', { desc = 'Quit' })
+
+-- Window navigation
+map('n', '<C-H>', '<C-w>h', { desc = 'Focus on left window' })
+map('n', '<C-J>', '<C-w>j', { desc = 'Focus on below window' })
+map('n', '<C-K>', '<C-w>k', { desc = 'Focus on above window' })
+map('n', '<C-L>', '<C-w>l', { desc = 'Focus on right window' })
+
+-- Window resize (respecting `v:count`)
+map('n', '<C-Left>', '"<Cmd>vertical resize -" . v:count1 . "<CR>"',
+	{ expr = true, replace_keycodes = false, desc = 'Decrease window width' })
+map('n', '<C-Down>', '"<Cmd>resize -"          . v:count1 . "<CR>"',
+	{ expr = true, replace_keycodes = false, desc = 'Decrease window height' })
+map('n', '<C-Up>', '"<Cmd>resize +"          . v:count1 . "<CR>"',
+	{ expr = true, replace_keycodes = false, desc = 'Increase window height' })
+map('n', '<C-Right>', '"<Cmd>vertical resize +" . v:count1 . "<CR>"',
+	{ expr = true, replace_keycodes = false, desc = 'Increase window width' })
 
 v.api.nvim_create_autocmd('BufEnter', { command = "filetype detect" })
-v.api.nvim_set_hl(0,'@lsp.type.comment', {italic=true})
+v.api.nvim_set_hl(0, '@lsp.type.comment', { italic = true })
