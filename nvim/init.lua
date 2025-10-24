@@ -4,8 +4,8 @@ local  map, o = v.keymap.set, v.opt
 
 v.g.mapleader = " "
 
-o.tabstop = 2
-o.shiftwidth = 2
+o.tabstop = 4
+o.shiftwidth = 4
 o.cursorline = true
 o.ignorecase = true
 o.ruler = true
@@ -26,7 +26,7 @@ o.signcolumn = "yes"
 
 v.pack.add({
 	{ src = "https://github.com/CopilotC-Nvim/CopilotChat.nvim" },
-	{ src = "https://github.com/pineapplegiant/spaceduck" },
+	{ src = "https://github.com/luisiacc/gruvbox-baby" },
 	{ src = "https://github.com/EdenEast/nightfox.nvim" },
 	{ src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
 	{ src = "https://github.com/echasnovski/mini.nvim" },
@@ -55,7 +55,7 @@ require "mini.indentscope".setup()
 require "mini.move".setup()
 require "mini.snippets".setup()
 require "sort".setup()
-v.cmd("colorscheme spaceduck")
+v.cmd("colorscheme gruvbox-baby")
 
 map('n', '<leader>b', '', { desc = 'Buffer' })
 map('n', '<leader>bf', v.lsp.buf.format, { desc = 'Format' })
