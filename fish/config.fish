@@ -69,7 +69,4 @@ set -gx VISUAL nvim
 set -gx EDITOR nvim
 
 set -x PATH $HOME/.cargo/bin $PATH
-set -x PATH "$HOME/.rvm/bin" $PATH
-set -x PATH "$HOME/.local/share/gem/ruby/3.3.0/bin" $PATH
-rvm default
 starship init fish | source
