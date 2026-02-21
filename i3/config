@@ -3,9 +3,8 @@ set $BROWSER qutebrowser
 set $TERMINAL kitty
 set $EDITOR nvim
 
-font pango:Hasklug Nerd Font 16
+font pango:Hasklug Nerd Font 8
 workspace_layout default
-smart_gaps on
 default_border pixel 2
 floating_modifier $mod
 
@@ -58,14 +57,16 @@ bindsym $mod+n exec --no-startup-id $TERMINAL -e yazi
 bindsym $mod+d exec --no-startup-id rofi -modi drun -show drun -config ~/.config/rofi/rofidmenu.rasi
 bindsym $mod+s exec flameshot gui
 
-exec_always --no-startup-id feh --bg-fill --randomize ~/Pictures/wallpapers/active/*
 exec_always --no-startup-id setxkbmap -layout 'us,is' -option 'grp:alt_shift_toggle,caps:escape'
+exec_always --no-startup-id xrdb -merge ~/.Xresources
+exec_always --no-startup-id xsetroot -cursor_name left_ptr
 exec_always --no-startup-id picom
 exec_always --no-startup-id xset -dpms
-exec_always --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec_always --no-startup-id /usr/bin/dunst
-exec_always --no-startup-id nm-applet
-exec_always --no-startup-id kdeconnect-indicator
+exec --no-startup-id autorandr --change
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id nm-applet
+exec --no-startup-id kdeconnect-indicator
 
 # border, background, text, indicator, child_border
 client.focused			#ffa500	#000000	#ffffff	#ffa500	#ffa500
@@ -74,6 +75,9 @@ client.focused_inactive		#000000	#000000	#ffffff	#000000	#000000
 client.urgent			#ff0000	#000000	#ffffff	#ff0000	#ff0000
 
 bar {
+		font pango:Hasklug Nerd Font 12
+		output primary
+		tray_output primary
     status_command /bin/i3blocks -c ~/.config/i3/i3blocks.conf
     position bottom
     colors {
@@ -86,8 +90,40 @@ bar {
 	    urgent_workspace   #2f343a #900000 #ffffff
 	    binding_mode       #2f343a #900000 #ffffff
 	    }
-    }
+}
+
+bar {
+		font pango:Hasklug Nerd Font 12
+		output nonprimary
+		tray_output none
+    status_command /bin/i3blocks -c ~/.config/i3/i3blocks.conf
+    position bottom
+    colors {
+	    background #000000
+	    statusline #ffffff
+	    separator #666666
+	    focused_workspace  #ffa500 #000000 #ffa500
+	    active_workspace   #402000 #080808 #ffffff
+	    inactive_workspace #333333 #080808 #888888
+	    urgent_workspace   #2f343a #900000 #ffffff
+	    binding_mode       #2f343a #900000 #ffffff
+	    }
+}
+
+
 
 
 for_window [instance="float"] floating enable
 for_window [title="Picture-in-Picture"] sticky enable
+exec_always --no-startup-id feh --bg-fill --randomize ~/Pictures/wallpapers/active/*
+
+
+
+set $main_out DP-2
+set $side_out DP-0
+
+exec --no-startup-id xrandr \
+  --output $main_out --primary --mode 3840x2160 --rate 143.85 --pos 2880x1480 --rotate normal \
+  --output $side_out --mode 2560x1440 --rate 60.00 --pos 0x0 --rotate left --scale 1.5x1.5
+
+exec_always --no-startup-id xrdb -merge ~/.Xresources

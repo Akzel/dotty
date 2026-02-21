@@ -6,9 +6,6 @@ vim.g.rustaceanvim = {
 	server = {
 		settings = {
 			["rust-analyzer"] = {
-				checkOnSave = {
-					enable = false,
-				},
 			},
 		},
 	},

@@ -4,8 +4,8 @@ local  map, o = v.keymap.set, v.opt
 
 v.g.mapleader = " "
 
-o.tabstop = 4
-o.shiftwidth = 4
+o.tabstop = 2
+o.shiftwidth = 2
 o.cursorline = true
 o.ignorecase = true
 o.ruler = true
@@ -25,7 +25,7 @@ o.incsearch = true
 o.signcolumn = "yes"
 
 v.pack.add({
-	{ src = "https://github.com/CopilotC-Nvim/CopilotChat.nvim" },
+	{ src = "https://github.com/github/copilot.vim" },
 	{ src = "https://github.com/luisiacc/gruvbox-baby" },
 	{ src = "https://github.com/EdenEast/nightfox.nvim" },
 	{ src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
@@ -33,7 +33,6 @@ v.pack.add({
 	{ src = "https://github.com/folke/which-key.nvim" },
 	{ src = "https://github.com/ibhagwan/fzf-lua" },
 	{ src = "https://github.com/j-hui/fidget.nvim" },
-	{ src = "https://github.com/m4xshen/hardtime.nvim" },
 	{ src = "https://github.com/mason-org/mason.nvim" },
 	{ src = "https://github.com/nvim-lua/plenary.nvim" },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
@@ -42,11 +41,9 @@ v.pack.add({
 })
 
 
-require "CopilotChat".setup()
 require "fidget".setup()
 require "fzf-lua".register_ui_select()
 require "fzf-lua".setup({ 'fzf-vim' })
-require "hardtime".setup({disable_mouse=false})
 require "mason".setup()
 require "mini.completion".setup()
 require "mini.files".setup({ windows = { preview = true, max_number = 2, width_preview = 50 } })
